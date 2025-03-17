@@ -26,7 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     IniciandoBD();
-  }, []);
+  }, [deletarTarefa, criarOuEditarTarefa, arquivarTarefa]);
 
   async function IniciandoBD() {
     const response = await api.get("/tarefas");
@@ -91,8 +91,11 @@ const Home = () => {
 
   async function deletarTarefa(id: string) {
     try {
-      await api.delete(`/deletar/${id}`);
-      IniciandoBD();
+      await api.delete("/deletar", {
+      params: {
+        id: id
+      }
+    });
     } catch (error) {
       console.log(error);
     }
